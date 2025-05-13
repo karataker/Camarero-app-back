@@ -34,7 +34,35 @@ spring:
             allowedHeaders: "*" ## All headers allowed
             allowedMethods:
             - POST
-      
+      routes:
+        - id: ms-camarero-usuarios
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**
+
+        - id: ms-camarero-reservas
+          uri: http://localhost:8082
+          predicates:
+            - Path=/reservas/**
+
+        # - id: ms-camarero-pedidos
+        #   uri: http://localhost:8083
+        #   predicates:
+        #     - Path=/pedidos/**
+
+        # - id: ms-camarero-inventario
+        #   uri: http://localhost:8084
+        #   predicates:
+        #     - Path=/inventario/**
+
+        # - id: ms-camarero-notificaciones
+        #   uri: http://localhost:8085
+        #   predicates:
+        #     - Path=/notificaciones/**
+
+jwt:
+ secret: clave_secreta_segura_para_el_token
+
 
 ## We enable the Actuator API to be able to access <<host>>/actuator/gateway/routes
 ## We expose the routings that have been automatically detected (all)

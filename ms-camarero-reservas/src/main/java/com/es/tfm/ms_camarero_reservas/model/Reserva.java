@@ -9,8 +9,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reserva {
@@ -29,4 +27,12 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "mesa_id")
     private Mesa mesa;
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
 }

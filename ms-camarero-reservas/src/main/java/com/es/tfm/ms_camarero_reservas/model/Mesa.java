@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Mesa {
@@ -23,4 +21,13 @@ public class Mesa {
     @ManyToOne
     @JoinColumn(name = "bar_id")
     private Bar bar;
+
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setBar(Bar bar) {
+        this.bar = bar;
+    }
 }

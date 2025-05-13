@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bar {
@@ -23,4 +21,5 @@ public class Bar {
 
     @OneToMany(mappedBy = "bar", cascade = CascadeType.ALL)
     private List<Mesa> mesas;
+
 }

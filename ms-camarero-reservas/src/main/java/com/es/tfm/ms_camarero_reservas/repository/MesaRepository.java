@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MesaRepository extends JpaRepository<Mesa, Long> {
     List<Mesa> findByBarId(Long barId);
+    List<Mesa> findByBarIdAndZonaAndEstado(Integer barId, String zona, String estado);
 }

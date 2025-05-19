@@ -28,4 +28,8 @@ public class AuthService {
         }
         return Optional.empty();
     }
+
+    public Optional<Usuario> getUsuarioByMatricula(String matricula) {
+        return usuarioRepository.findByMatricula(matricula);
+    }
 }

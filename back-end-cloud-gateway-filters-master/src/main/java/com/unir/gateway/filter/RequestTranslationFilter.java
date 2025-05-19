@@ -46,6 +46,11 @@ public class RequestTranslationFilter implements GlobalFilter {
             ServerWebExchange exchange,
             GatewayFilterChain chain) {
 
+        String path = exchange.getRequest().getURI().getPath();
+        if (path.startsWith("/auth")) {
+            return chain.filter(exchange);
+        }
+
         // By default, set the response status to 400. This will be overridden if the request is valid.
         exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
 

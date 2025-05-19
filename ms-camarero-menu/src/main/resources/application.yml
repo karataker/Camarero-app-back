@@ -1,0 +1,27 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: ms-camarero-menu
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbmenu
+    username: root
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: clave_secreta_segura_para_el_token

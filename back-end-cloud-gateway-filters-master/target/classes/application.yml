@@ -1,18 +1,18 @@
 server:
   port: ${PORT:8762}
-        
+
 ## Classic Eureka configuration
 eureka:
   instance:
     preferIpAddress: true
     hostname: ${HOSTNAME:localhost}
-    
+
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
-      
+
 
 ## Enable service discovery (with Eureka)
 ## lower-case-service-id is mandatory, otherwise is retrieved in upper case from Eureka
@@ -30,10 +30,15 @@ spring:
       globalcors: ## CORS Configuration
         cors-configurations:
           '[/**]': ## For all routes
-            allowedOrigins: ${ALLOWED_ORIGINS:*} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
+            allowedOrigins: ${ALLOWED_ORIGINS:http://localhost:3000} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
             allowedHeaders: "*" ## All headers allowed
             allowedMethods:
-            - POST
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allow-credentials: true
       routes:
         - id: ms-camarero-usuarios
           uri: http://localhost:8081
@@ -43,7 +48,7 @@ spring:
         - id: ms-camarero-reservas
           uri: http://localhost:8082
           predicates:
-            - Path=/reservas/**
+            - Path=/api/**
 
         # - id: ms-camarero-pedidos
         #   uri: http://localhost:8083
@@ -60,8 +65,13 @@ spring:
         #   predicates:
         #     - Path=/notificaciones/**
 
+        - id: ms-camarero-menu
+          uri: http://localhost:8086
+          predicates:
+            - Path=/bares/*/menu/*
+
 jwt:
- secret: clave_secreta_segura_para_el_token
+ secret: secretaso123secretaso123secretaso123!
 
 
 ## We enable the Actuator API to be able to access <<host>>/actuator/gateway/routes

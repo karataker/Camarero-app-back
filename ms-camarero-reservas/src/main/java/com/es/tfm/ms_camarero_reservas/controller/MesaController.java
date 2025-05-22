@@ -1,4 +1,3 @@
-
 package com.es.tfm.ms_camarero_reservas.controller;
 
 import com.es.tfm.ms_camarero_reservas.model.Bar;
@@ -25,7 +24,7 @@ public class MesaController {
     }
 
     @GetMapping
-    public List<Mesa> getMesas(@PathVariable Long barId) {
+    public List<Mesa> getMesas(@PathVariable int barId) {
         return mesaRepository.findByBarId(barId);
     }
 
@@ -37,7 +36,7 @@ public class MesaController {
     }
 
     @PutMapping("/fusionar")
-    public ResponseEntity<?> fusionarMesas(@PathVariable Long barId, @RequestBody Map<String, String> mesas) {
+    public ResponseEntity<?> fusionarMesas(@PathVariable int barId, @RequestBody Map<String, String> mesas) {
         String principal = mesas.get("mesaPrincipalCodigo");
         String secundaria = mesas.get("mesaSecundariaCodigo");
 
@@ -46,8 +45,8 @@ public class MesaController {
         Mesa mesaSecundaria = null;
 
         for (Mesa m : mesasList) {
-            if (m.getNombre().equals(principal)) mesaPrincipal = m;
-            if (m.getNombre().equals(secundaria)) mesaSecundaria = m;
+            if (m.getCodigo().equals(principal)) mesaPrincipal = m;
+            if (m.getCodigo().equals(secundaria)) mesaSecundaria = m;
         }
 
         if (mesaPrincipal == null || mesaSecundaria == null) {
@@ -61,14 +60,24 @@ public class MesaController {
     }
 
     @PutMapping("/desfusionar/{codigo}")
-    public ResponseEntity<?> desfusionar(@PathVariable Long barId, @PathVariable String codigo) {
+    public ResponseEntity<List<Mesa>> desfusionar(@PathVariable int barId, @PathVariable String codigo) {
         List<Mesa> mesas = mesaRepository.findByBarId(barId);
+
         for (Mesa mesa : mesas) {
             if (codigo.equals(mesa.getFusionadaCon())) {
                 mesa.setFusionadaCon(null);
                 mesaRepository.save(mesa);
             }
+            if (codigo.equals(mesa.getCodigo())) {
+                mesa.setDisponible(true);
+                mesa.setComensales(0);
+                mesa.setPedidoEnviado(false);
+                mesa.setFusionadaCon(null);
+                mesaRepository.save(mesa);
+            }
         }
-        return ResponseEntity.ok().build();
+
+        List<Mesa> actualizadas = mesaRepository.findByBarId(barId);
+        return ResponseEntity.ok(actualizadas);
     }
 }

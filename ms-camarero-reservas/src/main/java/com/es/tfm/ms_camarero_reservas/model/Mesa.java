@@ -14,16 +14,20 @@ public class Mesa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nombre;
-    private String zona;
-    private String estado;
-    private String fusionadaCon;
+    private String codigo; // antes 'nombre'
     private int capacidad;
+    private String zona;
+    private boolean disponible;
+    private boolean pedidoEnviado;
+    private int comensales;
+    private String fusionadaCon;
 
     @ManyToOne
     @JoinColumn(name = "bar_id")
     @JsonIgnore
     private Bar bar;
+
+    // Getters y Setters
 
     public Integer getId() {
         return id;
@@ -33,12 +37,20 @@ public class Mesa {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
     }
 
     public String getZona() {
@@ -49,12 +61,28 @@ public class Mesa {
         this.zona = zona;
     }
 
-    public String getEstado() {
-        return estado;
+    public boolean isDisponible() {
+        return disponible;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public boolean isPedidoEnviado() {
+        return pedidoEnviado;
+    }
+
+    public void setPedidoEnviado(boolean pedidoEnviado) {
+        this.pedidoEnviado = pedidoEnviado;
+    }
+
+    public int getComensales() {
+        return comensales;
+    }
+
+    public void setComensales(int comensales) {
+        this.comensales = comensales;
     }
 
     public String getFusionadaCon() {
@@ -63,14 +91,6 @@ public class Mesa {
 
     public void setFusionadaCon(String fusionadaCon) {
         this.fusionadaCon = fusionadaCon;
-    }
-
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
     }
 
     public Bar getBar() {

@@ -1,4 +1,3 @@
-
 package com.es.tfm.ms_camarero_reservas.service;
 
 import com.es.tfm.ms_camarero_reservas.model.Mesa;
@@ -23,8 +22,10 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public Reserva crearReserva(Reserva reserva) {
-        List<Mesa> disponibles = mesaRepository.findByBarIdAndZonaAndEstado(
-                reserva.getMesa().getBar().getId(), reserva.getMesa().getZona(), "disponible");
+        // Asumiendo que agregaste este metodo personalizado en MesaRepository
+        List<Mesa> disponibles = mesaRepository.findByBarIdAndZonaAndDisponibleTrue(
+                reserva.getMesa().getBar().getId(), reserva.getMesa().getZona()
+        );
 
         List<Mesa> seleccionadas = new ArrayList<>();
         int totalCapacidad = 0;
@@ -40,10 +41,10 @@ public class ReservaServiceImpl implements ReservaService {
             throw new RuntimeException("No hay mesas suficientes disponibles");
         }
 
-        String codigoPrincipal = seleccionadas.get(0).getNombre();
+        String codigoPrincipal = seleccionadas.get(0).getCodigo(); // antes getNombre()
 
         for (Mesa mesa : seleccionadas) {
-            mesa.setEstado("reservada");
+            mesa.setDisponible(false); // en lugar de setEstado("reservada")
             mesa.setFusionadaCon(
                     mesa.equals(seleccionadas.get(0)) ? null : codigoPrincipal
             );

@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter implements WebFilter {
             return chain.filter(exchange);
         }
 
-        if (path.startsWith("/auth") || path.startsWith("/cliente")) {
+        if (path.startsWith("/auth/login") || path.startsWith("/cliente")) {
             return chain.filter(exchange);
         }
 

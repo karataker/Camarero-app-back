@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String matricula;
     private String contrasena;
@@ -18,9 +18,13 @@ public class Usuario {
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
+    @Column(name = "bar_id", nullable = false)
+    private int barId;
+
+
     // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getMatricula() { return matricula; }
     public void setMatricula(String matricula) { this.matricula = matricula; }
@@ -39,4 +43,7 @@ public class Usuario {
 
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }
+
+    public int getBarId() { return barId; }
+    public void setBarId(int barId) { this.barId = barId; }
 }

@@ -47,7 +47,7 @@ public class RequestTranslationFilter implements GlobalFilter {
             GatewayFilterChain chain) {
 
         String path = exchange.getRequest().getURI().getPath();
-        if (path.startsWith("/auth")) {
+        if (path.startsWith("/auth/login")) {
             return chain.filter(exchange);
         }
 

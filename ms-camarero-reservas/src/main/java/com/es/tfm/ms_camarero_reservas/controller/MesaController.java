@@ -7,7 +7,7 @@ import com.es.tfm.ms_camarero_reservas.repository.MesaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Optional;
 import java.util.List;
 import java.util.Map;
 
@@ -80,4 +80,42 @@ public class MesaController {
         List<Mesa> actualizadas = mesaRepository.findByBarId(barId);
         return ResponseEntity.ok(actualizadas);
     }
+
+
+    @DeleteMapping("/{codigoMesa}")
+    public ResponseEntity<?> eliminarMesa(
+            @PathVariable Long barId,
+            @PathVariable String codigoMesa) {
+
+        Optional<Bar> barOptional = barRepository.findById(barId);
+        if (barOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Bar bar = barOptional.get();
+
+        Mesa mesaAEliminar = bar.getMesas().stream()
+                .filter(m -> m.getCodigo().equals(codigoMesa))
+                .findFirst()
+                .orElse(null);
+
+        if (mesaAEliminar == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Verifica que no tenga mesas fusionadas con ella
+        boolean tieneFusionadas = bar.getMesas().stream()
+                .anyMatch(m -> codigoMesa.equals(m.getFusionadaCon()));
+        if (tieneFusionadas) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("No se puede eliminar: hay mesas fusionadas con esta.");
+        }
+
+        // Elimina la mesa
+        bar.getMesas().remove(mesaAEliminar);
+        barRepository.save(bar);
+
+        return ResponseEntity.ok().build();
+    }
+
+
 }

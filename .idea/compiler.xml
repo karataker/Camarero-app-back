@@ -10,7 +10,7 @@
         <module name="gateway-filters" />
         <module name="eureka" />
       </profile>
-      <profile name="Annotation profile for ms-camarero-usuarios" enabled="true">
+      <profile name="Annotation profile for ms-camarero-reservas" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -18,15 +18,28 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/unknown/spring-boot-configuration-processor-unknown.jar" />
         </processorPath>
+        <module name="ms-camarero-menu" />
+        <module name="ms-camarero-inventario" />
+        <module name="ms-camarero-analiticas" />
         <module name="ms-camarero-reservas" />
+        <module name="ms-camarero-facturacion" />
+        <module name="ms-camarero-pedidos" />
         <module name="ms-camarero-usuarios" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ms-camarero-notificaciones" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka" options="-parameters" />
       <module name="gateway-filters" options="-parameters" />
+      <module name="ms-camarero-analiticas" options="-parameters" />
+      <module name="ms-camarero-facturacion" options="-parameters" />
+      <module name="ms-camarero-inventario" options="-parameters" />
+      <module name="ms-camarero-menu" options="-parameters" />
+      <module name="ms-camarero-pedidos" options="-parameters" />
       <module name="ms-camarero-reservas" options="-parameters" />
       <module name="ms-camarero-usuarios" options="-parameters" />
     </option>

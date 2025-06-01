@@ -47,6 +47,11 @@ spring:
           predicates:
             - Path=/api/**
 
+        - id: ms-camarero-inventario
+          uri: http://localhost:8080
+          predicates:
+            - Path=/inventario/**
+
         # - id: ms-camarero-pedidos
         #   uri: http://localhost:8083
         #   predicates:

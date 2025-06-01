@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MesaRepository extends JpaRepository<Mesa, Integer> {
-    List<Mesa> findByBarId(int barId);
-
-    List<Mesa> findByBarIdAndZonaAndDisponibleTrue(Integer barId, String zona);
+    List<Mesa> findByBarId(Long barId);
 }

@@ -1,12 +1,12 @@
 server:
-  port: 8086
+  port: 8084
 
 spring:
   application:
-    name: ms-camarero-menu
+    name: ms-camarero-inventario
 
   datasource:
-    url: jdbc:mysql://localhost:3306/dbmenu
+    url: jdbc:mysql://localhost:3306/dbinventario
     username: root
     password: pass
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,10 +14,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-inventario:
-  service:
-    url: http://localhost:8084/inventario
 
 eureka:
   client:

@@ -1,47 +1,31 @@
-package com.es.tfm.ms_camarero_menu.model;
+package com.es.tfm.ms_camarero_inventario.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Categoria {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nombre;
     private Integer barId;
 
 
-    // Getters y setters
-
     public Integer getId() {
         return id;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public Integer getBarId() {
         return barId;
     }
-
-    public void setBarId(Integer barId) {
-        this.barId = barId;
-    }
-
 }

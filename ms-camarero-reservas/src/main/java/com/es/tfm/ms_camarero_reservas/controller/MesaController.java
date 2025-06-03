@@ -43,6 +43,46 @@ public class MesaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMesa);
     }
 
+
+    // In MesaController.java (add this new endpoint)
+
+    // Ruta: PUT /api/bares/{barId}/mesas/{codigoMesa}/ocupar
+    @PutMapping("/bares/{barId}/mesas/{codigoMesa}/ocupar")
+    public ResponseEntity<?> ocuparMesa(
+            @PathVariable Long barId,
+            @PathVariable String codigoMesa,
+            @RequestBody Map<String, Object> payload) { // Use Object to handle int for comensales
+
+        Optional<Mesa> mesaOptional = mesaRepository.findByBarIdAndCodigo(barId, codigoMesa);
+        if (mesaOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mesa con código " + codigoMesa + " no encontrada en el bar " + barId);
+        }
+
+        Mesa mesa = mesaOptional.get();
+
+        // Validate payload for comensales
+        if (!payload.containsKey("comensales")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Número de comensales es requerido.");
+        }
+        int comensales = (Integer) payload.get("comensales"); // Assuming integer from payload
+        if (comensales <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Número de comensales debe ser mayor a cero.");
+        }
+
+        // You might want to re-check capacity and immediate availability here on the server side as well
+        // for robustness, similar to how it's done on the frontend.
+        // For now, we'll rely on the frontend check as per prompt, but this is a security/robustness point.
+
+        mesa.setDisponible(false);
+        mesa.setEstado("ocupada");
+        mesa.setComensales(comensales); // Set the number of diners
+        mesa.setPedidoEnviado(false); // Reset if needed, or manage separately
+
+        mesaRepository.save(mesa);
+        return ResponseEntity.ok(mesa); // Return the updated mesa
+    }
+
+
     // Fusionar mesas within a bar
     // Ruta: PUT /api/bares/{barId}/mesas/fusionar
     @PutMapping("/bares/{barId}/mesas/fusionar")

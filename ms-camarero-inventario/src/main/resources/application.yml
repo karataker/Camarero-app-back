@@ -1,10 +1,11 @@
 server:
-  port: 8080          # Puerto en el que escuchará el micro de inventario
+
+  port: 8084
 
 spring:
   application:
-    name: ms-camarero-inventario   # Nombre con el que se registrará en Eureka
-
+    name: ms-camarero-inventario
+    
   datasource:
     url: jdbc:mysql://localhost:3306/dbinventario
     username: root
@@ -13,8 +14,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update             # crea/actualiza tablas automáticamente
-    show-sql: true                 # muestra las consultas en consola
+      ddl-auto: update
+    show-sql: true
 
 eureka:
   client:
@@ -22,3 +23,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
+

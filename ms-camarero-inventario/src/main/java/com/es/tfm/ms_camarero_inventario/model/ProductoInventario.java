@@ -1,39 +1,40 @@
 package com.es.tfm.ms_camarero_inventario.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
-
-import java.math.BigDecimal;
-
 @Entity
-@Table(name = "producto_inventario")
 public class ProductoInventario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    private Integer id;
 
     private String nombre;
+    private String unidad; // ej: "unidad", "gramos", "ml", "botella"
+    private Double stockActual;
+    private Double stockMinimo;
 
-    @Column(name = "categoria_id")
-    private Integer categoriaId;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Proveedor proveedor;
 
-    private int stock;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-    @Column(name = "stock_minimo")
-    private int stockMinimo;
+    private Integer barId;
 
-    private String unidad;
-
-    private BigDecimal precio;
-
-    @Column(name = "bar_id")
-    private Long barId;
-
-    public Long getId() {
+    // Getters y setters
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
+
         this.id = id;
     }
     public String getNombre() {
@@ -42,43 +43,38 @@ public class ProductoInventario {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Integer getCategoriaId() {
-        return categoriaId;
-    }
-    public void setCategoriaId(Integer categoriaId) {
-        this.categoriaId = categoriaId;
-    }
-    public int getStock() {
-        return stock;
-    }
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-    public int getStockMinimo() {
-        return stockMinimo;
-    }
-    public void setStockMinimo(int stockMinimo) {
-        this.stockMinimo = stockMinimo;
-    }
     public String getUnidad() {
         return unidad;
     }
     public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
-    public BigDecimal getPrecio() {
-        return precio;
+    public Double getStockActual() {
+        return stockActual;
     }
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
+    public void setStockActual(Double stockActual) {
+        this.stockActual = stockActual;
     }
-    public Long getBarId() {
+    public Double getStockMinimo() {
+        return stockMinimo;
+    }
+    public void setStockMinimo(Double stockMinimo) {
+        this.stockMinimo = stockMinimo;
+    }
+    public Categoria getCategoria() {
+        return categoria;
+    }
+    public Integer getBarId() {
         return barId;
     }
-    public void setBarId(Long barId) {
+    public void setBarId(Integer barId) {
         this.barId = barId;
     }
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
 
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 }
-
-

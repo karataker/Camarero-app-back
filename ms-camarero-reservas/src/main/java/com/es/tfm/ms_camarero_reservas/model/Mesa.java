@@ -1,6 +1,8 @@
 package com.es.tfm.ms_camarero_reservas.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference; // Importación añadida
+import com.fasterxml.jackson.annotation.JsonIgnore; // Esta ya estaba, pero es relevante para la relación
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,10 +23,11 @@ public class Mesa {
     private boolean pedidoEnviado;
     private int comensales;
     private String fusionadaCon;
+    private String estado;
 
     @ManyToOne
     @JoinColumn(name = "bar_id")
-    @JsonIgnore
+    @JsonBackReference // Anotación añadida para la relación bidireccional con Bar
     private Bar bar;
 
     // Getters y Setters
@@ -99,5 +102,13 @@ public class Mesa {
 
     public void setBar(Bar bar) {
         this.bar = bar;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) { // Setter añadido para el campo estado
+        this.estado = estado;
     }
 }

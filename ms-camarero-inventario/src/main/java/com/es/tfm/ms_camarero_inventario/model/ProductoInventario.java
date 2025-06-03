@@ -1,5 +1,6 @@
 package com.es.tfm.ms_camarero_inventario.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ public class ProductoInventario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     private String nombre;
@@ -32,6 +34,7 @@ public class ProductoInventario {
         return id;
     }
     public void setId(Integer id) {
+
         this.id = id;
     }
     public String getNombre() {

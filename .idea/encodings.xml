@@ -3,6 +3,11 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/back-end-cloud-gateway-filters-master/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/back-end-eureka-master/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-camarero-analiticas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-camarero-facturacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-camarero-inventario/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-camarero-menu/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-camarero-pedidos/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-camarero-reservas/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-camarero-usuarios/src/main/java" charset="UTF-8" />
   </component>

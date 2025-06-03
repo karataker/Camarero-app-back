@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/inventario")
 public class ProductoInventarioController {
-
+  
     private final ProductoInventarioService service;
 
     public ProductoInventarioController(ProductoInventarioService service) {

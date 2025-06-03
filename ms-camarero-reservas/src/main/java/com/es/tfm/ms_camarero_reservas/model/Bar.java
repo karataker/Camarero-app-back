@@ -1,9 +1,9 @@
 package com.es.tfm.ms_camarero_reservas.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference; // Importación añadida
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import java.util.List;
 
@@ -14,18 +14,19 @@ public class Bar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String nombre;
 
-    @OneToMany(mappedBy = "bar", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "bar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) // fetch = FetchType.EAGER añadido
+    @JsonManagedReference // Anotación añadida
     private List<Mesa> mesas;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

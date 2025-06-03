@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bares")
+@RequestMapping("/api/bares") // This remains the same as it's for top-level bar operations
 public class BarController {
 
     private final BarRepository barRepository;

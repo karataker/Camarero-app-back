@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Camarero-app-back.iml" filepath="$PROJECT_DIR$/.idea/Camarero-app-back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-camarero-inventario/ms-camarero-inventario.iml" filepath="$PROJECT_DIR$/ms-camarero-inventario/ms-camarero-inventario.iml" />
     </modules>
   </component>
 </project>

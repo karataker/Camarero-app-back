@@ -1,5 +1,8 @@
+// In Reserva.java
+
 package com.es.tfm.ms_camarero_reservas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,12 +24,20 @@ public class Reserva {
     private LocalDateTime fechaSolicitud;
 
     @ManyToOne
-    @JoinColumn(name = "mesa_id")
-    private Mesa mesa;
+    @JoinColumn(name = "bar_id")
+    private Bar bar;
 
-    // Getters y setters
+    @ManyToOne
+    @JoinColumn(name = "mesa_id")
+    private Mesa mesa; // This will hold the full Mesa object
+
+    // Getters and setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombreCliente() {
@@ -108,4 +119,20 @@ public class Reserva {
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
     }
+    public Bar getBar() {
+        return bar;
+    }
+    public void setBar(Bar bar) {
+        this.bar = bar;
+    }
+
+    // REMOVE THIS METHOD:
+    /*
+    public void setMesaId(Long mesaId) {
+        if (this.mesa == null) {
+            this.mesa = new Mesa();
+        }
+        this.mesa.setId(Math.toIntExact(mesaId));
+    }
+    */
 }

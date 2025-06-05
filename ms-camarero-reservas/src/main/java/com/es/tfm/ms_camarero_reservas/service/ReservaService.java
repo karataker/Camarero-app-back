@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ReservaService {
 
     private final ReservaRepository reservaRepository;
-    private final MesaRepository mesaRepository;
+    private final MesaRepository mesaRepository; // Keep if needed for other operations, but won't be used in create for initial reservation
     private final BarRepository barRepository;
 
     public ReservaService(ReservaRepository reservaRepository, MesaRepository mesaRepository, BarRepository barRepository) {
@@ -25,26 +25,24 @@ public class ReservaService {
     }
 
     public Reserva create(Reserva reserva) {
-        // Fetch and set Mesa entity
-        if (reserva.getMesa() != null && reserva.getMesa().getId() != null) {
-            // IMPORTANT: Cast to Integer if Mesa ID is Integer in Mesa.java
-            Mesa mesa = mesaRepository.findById(reserva.getMesa().getId()) // If Mesa.id is Integer
-                    .orElseThrow(() -> new RuntimeException("Mesa not found with ID: " + reserva.getMesa().getId()));
-            reserva.setMesa(mesa);
-        } else {
-            throw new IllegalArgumentException("Mesa ID is required for creating a reservation.");
-        }
-
-        // Fetch and set Bar entity
+        // Fetch and set Bar entity - This is still required as it's sent from the client
         if (reserva.getBar() != null && reserva.getBar().getId() != null) {
             Bar bar = barRepository.findById(reserva.getBar().getId())
                     .orElseThrow(() -> new RuntimeException("Bar not found with ID: " + reserva.getBar().getId()));
             reserva.setBar(bar);
         } else {
+            // This error should still be thrown if no bar ID is provided from the client
             throw new IllegalArgumentException("Bar ID is required for creating a reservation.");
         }
 
-        reserva.setEstado("confirmada");
+        // --- MODIFICATION START ---
+        // REMOVE the Mesa ID check and assignment for initial creation
+        // The Mesa will be assigned later from the admin view.
+        reserva.setMesa(null); // Explicitly set mesa to null if not provided, or simply don't set it if it's already null
+        // --- MODIFICATION END ---
+
+        // Set initial status and request date
+        reserva.setEstado("pendiente"); // Change to "pendiente" as the mesa is not yet confirmed
         reserva.setFechaSolicitud(LocalDateTime.now());
 
         return reservaRepository.save(reserva);
@@ -64,12 +62,17 @@ public class ReservaService {
 
         if (cambios.getEstado() != null) r.setEstado(cambios.getEstado());
         // Handle Mesa update: if a new mesa is provided by ID, fetch and set it
+        // This part remains as it's likely used for admin updates
         if (cambios.getMesa() != null && cambios.getMesa().getId() != null) {
-            // IMPORTANT: Cast to Integer if Mesa ID is Integer in Mesa.java
-            Mesa newMesa = mesaRepository.findById(cambios.getMesa().getId()) // If Mesa.id is Integer
+            Mesa newMesa = mesaRepository.findById(cambios.getMesa().getId())
                     .orElseThrow(() -> new RuntimeException("Mesa not found with ID: " + cambios.getMesa().getId()));
             r.setMesa(newMesa);
+        } else if (cambios.getMesa() != null && cambios.getMesa().getId() == null) {
+            // If Mesa object is sent but ID is null, assume intent to clear mesa
+            r.setMesa(null);
         }
+
+
         if (cambios.getNombreCliente() != null) r.setNombreCliente(cambios.getNombreCliente());
         if (cambios.getCorreoElectronico() != null) r.setCorreoElectronico(cambios.getCorreoElectronico());
         if (cambios.getTelefono() != null) r.setTelefono(cambios.getTelefono());

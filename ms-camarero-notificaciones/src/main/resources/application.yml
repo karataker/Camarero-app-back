@@ -1,25 +1,19 @@
 server:
-
-  port: 8084
+  port: 8085
 
 spring:
   application:
-    name: ms-camarero-inventario
-    
+    name: ms-camarero-notificaciones
+
   datasource:
-    url: jdbc:mysql://localhost:3306/dbinventario
+    url: jdbc:mysql://localhost:3306/dbnotificaciones
     username: root
     password: pass
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-menu:
-  service:
-    url: http://localhost:8086/menu
 
 eureka:
   client:
@@ -27,4 +21,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
-

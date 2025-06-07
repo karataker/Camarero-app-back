@@ -82,4 +82,11 @@ public class ProductoInventarioController {
         Double cantidad = body.get("cantidad");
         return ResponseEntity.ok(service.ajustarStock(id, -cantidad));
     }
+    
+    @PostMapping("/restar-ingredientes/{productoId}")
+    public ResponseEntity<Void> restarIngredientes(@PathVariable Integer productoId, @RequestParam int cantidad) {
+        service.restarIngredientesPorProducto(productoId, cantidad);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.es.tfm.ms_camarero_inventario.service;
 
+import com.es.tfm.ms_camarero_inventario.client.IngredienteMenuClient;
 import com.es.tfm.ms_camarero_inventario.model.Categoria;
 import com.es.tfm.ms_camarero_inventario.model.ProductoInventario;
 import com.es.tfm.ms_camarero_inventario.model.dto.IngredienteDTO;
@@ -14,10 +15,12 @@ public class ProductoInventarioService {
 
     private final ProductoInventarioRepository productoRepo;
     private final CategoriaRepository categoriaRepo;
+    private final IngredienteMenuClient ingredienteMenuClient;
 
-    public ProductoInventarioService(ProductoInventarioRepository productoRepo, CategoriaRepository categoriaRepo) {
+    public ProductoInventarioService(ProductoInventarioRepository productoRepo, CategoriaRepository categoriaRepo, IngredienteMenuClient ingredienteMenuClient) {
         this.productoRepo = productoRepo;
         this.categoriaRepo = categoriaRepo;
+        this.ingredienteMenuClient = ingredienteMenuClient;
     }
 
     public List<ProductoInventario> getAll() {
@@ -79,4 +82,20 @@ public class ProductoInventarioService {
         producto.setStockActual(Math.max(nuevoStock, 0.0));
         return productoRepo.save(producto);
     }
+
+    public void restarIngredientesPorProducto(Integer productoId, int cantidadPlatos) {
+        List<IngredienteDTO> ingredientes = ingredienteMenuClient.getIngredientesPorProducto(productoId);
+
+        for (IngredienteDTO ing : ingredientes) {
+            ProductoInventario inventario = productoRepo.findById(ing.getInventarioId())
+                    .orElseThrow(() -> new RuntimeException("Ingrediente no encontrado"));
+
+            double cantidadTotal = ing.getCantidadPorRacion() * cantidadPlatos;
+            double nuevoStock = inventario.getStockActual() - cantidadTotal;
+
+            inventario.setStockActual(Math.max(0.0, nuevoStock));
+            productoRepo.save(inventario);
+        }
+    }
+
 }

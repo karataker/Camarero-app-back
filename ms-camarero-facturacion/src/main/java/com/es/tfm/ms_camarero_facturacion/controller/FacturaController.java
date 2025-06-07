@@ -1,9 +1,11 @@
 package com.es.tfm.ms_camarero_facturacion.controller;
 
 import com.es.tfm.ms_camarero_facturacion.model.Factura;
+import com.es.tfm.ms_camarero_facturacion.model.dto.ComandaDTO;
 import com.es.tfm.ms_camarero_facturacion.service.FacturaService;
 import com.es.tfm.ms_camarero_facturacion.service.StripeService;
 import com.stripe.exception.StripeException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/facturacion/facturas")
-@CrossOrigin(origins = "*")
 public class FacturaController {
 
     private final FacturaService facturaService;
@@ -20,11 +21,6 @@ public class FacturaController {
     public FacturaController(FacturaService facturaService, StripeService stripeService) {
         this.facturaService = facturaService;
         this.stripeService = stripeService;
-    }
-
-    @PostMapping
-    public Factura crearFactura(@RequestBody Factura factura) {
-        return facturaService.crearFactura(factura);
     }
 
     @GetMapping
@@ -42,4 +38,11 @@ public class FacturaController {
         String sessionId = stripeService.crearSesionPago(factura);
         return Map.of("id", sessionId);
     }
+
+    @PostMapping("/crear-desde-comanda")
+    public ResponseEntity<Void> crearFacturaDesdeComanda(@RequestBody ComandaDTO dto) {
+        facturaService.crearDesdeComanda(dto);
+        return ResponseEntity.ok().build();
+    }
+
 }

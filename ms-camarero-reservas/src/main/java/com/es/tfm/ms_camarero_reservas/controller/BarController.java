@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/bares") // This remains the same as it's for top-level bar operations
+@RequestMapping("/api/bares")
 public class BarController {
 
     private final BarRepository barRepository;

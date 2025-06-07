@@ -67,6 +67,11 @@ spring:
           predicates:
             - Path=/menu/**
 
+        - id: ms-camarero-facturacion
+          uri: http://localhost:8087
+          predicates:
+            - Path=/facturacion/**
+
 jwt:
  secret: secretaso123secretaso123secretaso123!
 

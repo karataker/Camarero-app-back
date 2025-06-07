@@ -1,0 +1,29 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: ms-camarero-facturacion
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbfacturacion
+    username: root
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+stripe:
+  secret-key: sk_test_51RX4A6QaX6FBMpovtArnlehYE0RFsGIdWVwkrXzGhSYcdBhdnD6wQ12d5Y9nPTaQiwwQmOuOMEbnOwXOV8aIZlOs00Tqk8hE7H
+  success-url: http://localhost:3000/cliente/pago-exitoso
+  cancel-url: http://localhost:3000/cliente/pago-cancelado

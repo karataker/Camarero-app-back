@@ -70,6 +70,12 @@ public class ComandaService {
         // 4. Crear factura en micro de facturación
         facturacionClient.crearFacturaDesdeComanda(dto);
     }
+
+
+    // JM añadido para funcionamiento de llamada getComandasPorMesa
+    public List<Comanda> getComandasPorMesa(Long barId, String mesaCodigo) {
+        return comandaRepository.findByBarIdAndMesaCodigo(barId, mesaCodigo);
+    }
 }
 
 

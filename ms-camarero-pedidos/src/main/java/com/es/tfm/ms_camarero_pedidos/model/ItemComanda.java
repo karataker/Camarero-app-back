@@ -1,5 +1,6 @@
 package com.es.tfm.ms_camarero_pedidos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class ItemComanda {
 
     @ManyToOne
     @JoinColumn(name = "comanda_id")
+    @JsonBackReference // JM añadido Evita el bucle infinito de serialización
     private Comanda comanda;
 
     // Getters y Setters

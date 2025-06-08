@@ -1,6 +1,7 @@
 package com.es.tfm.ms_camarero_pedidos.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Comanda {
     private String estado = "en_preparacion"; // o "listo"
 
     @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  //cambio JM para evitar el bucle infinito de serialización
     private List<ItemComanda> items;
 
     // Getters y Setters

@@ -22,6 +22,9 @@ public class ItemComanda {
 
     private double precio;
 
+    // --- CAMPO NUEVO Y NECESARIO ---
+    private String estado = "pendiente"; // Estados por defecto: pendiente
+
     @ManyToOne
     @JoinColumn(name = "comanda_id")
     @JsonBackReference // JM añadido Evita el bucle infinito de serialización
@@ -66,5 +69,12 @@ public class ItemComanda {
     }
     public void setComanda(Comanda comanda) {
         this.comanda = comanda;
+    }
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

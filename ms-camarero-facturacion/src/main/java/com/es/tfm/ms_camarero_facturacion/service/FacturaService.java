@@ -19,48 +19,66 @@ public class FacturaService {
         this.facturaRepository = facturaRepository;
     }
 
+    /**
+     * Crea y guarda una factura a partir de una comanda.
+     */
     public void crearDesdeComanda(ComandaDTO comandaDTO) {
-            if (comandaDTO.getItems() == null || comandaDTO.getItems().isEmpty()) {
-                throw new IllegalArgumentException("La comanda no contiene productos");
-            }
-
-            Factura factura = new Factura();
-            factura.setCliente("Cliente Noname");
-            factura.setFecha(LocalDateTime.now());
-            factura.setNumeroFactura("F-" + System.currentTimeMillis());
-            factura.setMetodoPago("tarjeta");
-            factura.setEstado("pagada");
-            factura.setBarId(comandaDTO.getBarId());
-
-            List<LineaFactura> lineas = comandaDTO.getItems().stream().map(item -> {
-                LineaFactura linea = new LineaFactura();
-                linea.setNombre(item.getNombre());
-                linea.setCantidad(item.getCantidad());
-                linea.setPrecio(item.getPrecio());
-                linea.setFactura(factura);
-                return linea;
-            }).collect(Collectors.toList());
-
-            factura.setLineas(lineas);
-
-            double subtotal = lineas.stream()
-                    .mapToDouble(l -> l.getPrecio() * l.getCantidad())
-                    .sum();
-            double iva = subtotal * 0.10;
-            double total = subtotal + iva;
-
-            factura.setSubtotal(subtotal);
-            factura.setIva(iva);
-            factura.setTotal(total);
-
-            facturaRepository.save(factura);
+        if (comandaDTO.getItems() == null || comandaDTO.getItems().isEmpty()) {
+            throw new IllegalArgumentException("La comanda no contiene productos");
         }
 
+        Factura factura = new Factura();
+        factura.setCliente("Cliente Noname");
+        factura.setFecha(LocalDateTime.now());
+        factura.setNumeroFactura("F-" + System.currentTimeMillis());
+        factura.setMetodoPago("tarjeta");
+        factura.setEstado("pagada");
+        factura.setBarId(comandaDTO.getBarId());
+
+        List<LineaFactura> lineas = comandaDTO.getItems().stream()
+                .map(item -> {
+                    LineaFactura linea = new LineaFactura();
+                    linea.setNombre(item.getNombre());
+                    linea.setCantidad(item.getCantidad());
+                    linea.setPrecio(item.getPrecio());
+                    linea.setFactura(factura);
+                    return linea;
+                })
+                .collect(Collectors.toList());
+
+        factura.setLineas(lineas);
+
+        double subtotal = lineas.stream()
+                .mapToDouble(l -> l.getPrecio() * l.getCantidad())
+                .sum();
+        double iva = subtotal * 0.10;
+        double total = subtotal + iva;
+
+        factura.setSubtotal(subtotal);
+        factura.setIva(iva);
+        factura.setTotal(total);
+
+        facturaRepository.save(factura);
+    }
+
+    /**
+     * Devuelve todas las facturas.
+     */
     public List<Factura> obtenerTodas() {
         return facturaRepository.findAll();
     }
 
+    /**
+     * Devuelve la factura con el ID indicado, o null si no existe.
+     */
     public Factura obtenerPorId(int id) {
         return facturaRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Devuelve todas las facturas asociadas a un bar concreto.
+     */
+    public List<Factura> obtenerPorBar(Integer barId) {
+        return facturaRepository.findByBarId(barId);
     }
 }

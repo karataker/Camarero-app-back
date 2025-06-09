@@ -1,5 +1,6 @@
 package com.es.tfm.ms_camarero_facturacion.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Factura {
     private Integer barId;
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<LineaFactura> lineas;
 
     // Getters y Setters

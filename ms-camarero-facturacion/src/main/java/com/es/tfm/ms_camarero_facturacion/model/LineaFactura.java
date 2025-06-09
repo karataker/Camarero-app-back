@@ -1,5 +1,6 @@
 package com.es.tfm.ms_camarero_facturacion.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class LineaFactura {
 
     @ManyToOne
     @JoinColumn(name = "factura_id")
+    @JsonBackReference
     private Factura factura;
 
     // Getters y Setters

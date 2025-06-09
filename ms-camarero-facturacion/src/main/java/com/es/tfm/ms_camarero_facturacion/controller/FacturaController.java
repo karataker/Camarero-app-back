@@ -28,6 +28,11 @@ public class FacturaController {
         return facturaService.obtenerTodas();
     }
 
+    @GetMapping("/bares/{barId}")
+    public List<Factura> obtenerFacturasPorBar(@PathVariable Integer barId) {
+        return facturaService.obtenerPorBar(barId);
+    }
+
     @GetMapping("/{id}")
     public Factura obtenerPorId(@PathVariable Integer id) {
         return facturaService.obtenerPorId(id);

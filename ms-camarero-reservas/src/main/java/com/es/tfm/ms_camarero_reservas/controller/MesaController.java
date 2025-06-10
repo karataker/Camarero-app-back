@@ -169,4 +169,24 @@ public class MesaController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/bares/{barId}/mesas/id/{id}/liberar")
+    public ResponseEntity<?> liberarMesaDirectamente(
+            @PathVariable int barId,
+            @PathVariable int id) {
+
+        Mesa m = mesaRepository.findByBarIdAndId(barId, id);
+        if (m == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mesa no encontrada");
+        }
+
+        m.setDisponible(true);
+        m.setComensales(0);
+        m.setPedidoEnviado(false);
+        m.setFusionadaCon(null);
+        m.setEstado(null);
+
+        mesaRepository.save(m);
+        return ResponseEntity.ok(m);
+    }
 }

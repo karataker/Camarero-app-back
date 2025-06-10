@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface MesaRepository extends JpaRepository<Mesa, Integer> {
     List<Mesa> findByBarId(Long barId);
-    Optional<Mesa> findByBarIdAndCodigo(Long barId, String codigo); // Add this method
+    Optional<Mesa> findByBarIdAndCodigo(Long barId, String codigo);
+    Mesa findByBarIdAndId(int barId, int id);
+
+    List<Mesa> id(Integer id);
 }

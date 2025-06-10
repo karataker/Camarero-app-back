@@ -59,7 +59,6 @@ public class ComandasController {
     }
 
 
-    // --- ENDPOINT NUEVO ---
     @PatchMapping("/items/{itemId}")
     public ResponseEntity<ItemComanda> actualizarEstadoItem(
             @PathVariable("itemId") Integer itemId,
@@ -71,6 +70,20 @@ public class ComandasController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{barId}/{mesaCodigo}/terminar")
+    public ResponseEntity<?> marcarComandasComoTerminadas(
+            @PathVariable("barId") Integer barId,
+            @PathVariable("mesaCodigo") String mesaCodigo) {
+
+        try {
+            comandaService.marcarComandasComoTerminadas(barId, mesaCodigo);
+            return ResponseEntity.ok("Comandas marcadas como terminadas correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al marcar comandas como terminadas: " + e.getMessage());
         }
     }
 

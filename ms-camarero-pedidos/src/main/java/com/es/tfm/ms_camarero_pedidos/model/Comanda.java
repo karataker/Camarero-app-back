@@ -24,7 +24,7 @@ public class Comanda {
 
     private LocalDateTime fecha = LocalDateTime.now();
 
-    private String estado = "en_preparacion"; // o "listo"
+    private String estado = "Pendiente";
 
     @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference  //cambio JM para evitar el bucle infinito de serialización

@@ -27,7 +27,7 @@ public class Mesa {
 
     @ManyToOne
     @JoinColumn(name = "bar_id")
-    @JsonBackReference // Anotación añadida para la relación bidireccional con Bar
+    @JsonBackReference
     private Bar bar;
 
     // Getters y Setters

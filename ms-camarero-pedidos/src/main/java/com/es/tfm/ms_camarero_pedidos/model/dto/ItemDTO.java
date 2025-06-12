@@ -4,7 +4,7 @@ public class ItemDTO {
     private String nombre;
     private int cantidad;
     private Integer productoId;
-    private double precio;// <-- necesario para inventario
+    private double precio;
 
     public String getNombre() { return nombre; }
     public int getCantidad() { return cantidad; }

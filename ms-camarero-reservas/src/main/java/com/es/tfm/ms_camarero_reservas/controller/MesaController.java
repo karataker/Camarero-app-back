@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api") // Base path for all controllers
+@RequestMapping("/api")
 public class MesaController {
 
     private final MesaRepository mesaRepository;
@@ -23,20 +23,17 @@ public class MesaController {
         this.barRepository = barRepository;
     }
 
-    // Get all mesas for a specific bar
-    // Ruta: GET /api/bares/{barId}/mesas
     @GetMapping("/bares/{barId}/mesas")
     public List<Mesa> getMesasByBarId(@PathVariable Long barId) {
         return mesaRepository.findByBarId(barId);
     }
 
-    // Create a new mesa for a specific bar
-    // Ruta: POST /api/bares/{barId}/mesas
+
     @PostMapping("/bares/{barId}/mesas")
     public ResponseEntity<Mesa> createMesa(@PathVariable Long barId, @RequestBody Mesa mesa) {
         Optional<Bar> barOptional = barRepository.findById(barId);
         if (barOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Bar not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         mesa.setBar(barOptional.get());
         Mesa savedMesa = mesaRepository.save(mesa);
@@ -44,14 +41,11 @@ public class MesaController {
     }
 
 
-    // In MesaController.java (add this new endpoint)
-
-    // Ruta: PUT /api/bares/{barId}/mesas/{codigoMesa}/ocupar
     @PutMapping("/bares/{barId}/mesas/{codigoMesa}/ocupar")
     public ResponseEntity<?> ocuparMesa(
             @PathVariable Long barId,
             @PathVariable String codigoMesa,
-            @RequestBody Map<String, Object> payload) { // Use Object to handle int for comensales
+            @RequestBody Map<String, Object> payload) {
 
         Optional<Mesa> mesaOptional = mesaRepository.findByBarIdAndCodigo(barId, codigoMesa);
         if (mesaOptional.isEmpty()) {
@@ -69,17 +63,13 @@ public class MesaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Número de comensales debe ser mayor a cero.");
         }
 
-        // You might want to re-check capacity and immediate availability here on the server side as well
-        // for robustness, similar to how it's done on the frontend.
-        // For now, we'll rely on the frontend check as per prompt, but this is a security/robustness point.
-
         mesa.setDisponible(false);
         mesa.setEstado("ocupada");
-        mesa.setComensales(comensales); // Set the number of diners
-        mesa.setPedidoEnviado(false); // Reset if needed, or manage separately
+        mesa.setComensales(comensales);
+        mesa.setPedidoEnviado(false);
 
         mesaRepository.save(mesa);
-        return ResponseEntity.ok(mesa); // Return the updated mesa
+        return ResponseEntity.ok(mesa);
     }
 
 
@@ -114,23 +104,20 @@ public class MesaController {
     }
 
 
-
-    // Desfusionar mesas within a bar
-    // Ruta: PUT /api/bares/{barId}/mesas/desfusionar/{codigo}
     @PutMapping("/bares/{barId}/mesas/desfusionar/{codigo}")
-    public ResponseEntity<List<Mesa>> desfusionar(@PathVariable Long barId, @PathVariable String codigo) { // 'codigo' is already a String
+    public ResponseEntity<List<Mesa>> desfusionar(@PathVariable Long barId, @PathVariable String codigo) {
         List<Mesa> mesas = mesaRepository.findByBarId(barId);
 
         for (Mesa mesa : mesas) {
-            if (codigo.equals(mesa.getFusionadaCon())) { // Corrected line: 'codigo' is directly compared
+            if (codigo.equals(mesa.getFusionadaCon())) {
                 mesa.setFusionadaCon(null);
                 mesaRepository.save(mesa);
             }
-            if (codigo.equals(mesa.getCodigo())) { // Corrected line: 'codigo' is directly compared
+            if (codigo.equals(mesa.getCodigo())) {
                 mesa.setDisponible(true);
                 mesa.setComensales(0);
                 mesa.setPedidoEnviado(false);
-                mesa.setFusionadaCon(null); // Asegura que la mesa principal también se desfusione si es el caso
+                mesa.setFusionadaCon(null);
                 mesaRepository.save(mesa);
             }
         }
@@ -139,8 +126,7 @@ public class MesaController {
         return ResponseEntity.ok(actualizadas);
     }
 
-    // Delete a mesa from a specific bar
-    // Ruta: DELETE /api/bares/{barId}/mesas/{codigoMesa}
+
     @DeleteMapping("/bares/{barId}/mesas/{codigoMesa}")
     public ResponseEntity<?> eliminarMesa(
             @PathVariable Long barId,
@@ -169,6 +155,7 @@ public class MesaController {
 
         return ResponseEntity.ok().build();
     }
+
 
     @PutMapping("/bares/{barId}/mesas/id/{id}/liberar")
     public ResponseEntity<?> liberarMesaDirectamente(

@@ -29,7 +29,7 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "mesa_id")
-    private Mesa mesa; // This will hold the full Mesa object
+    private Mesa mesa;
 
     // Getters and setters
     public Long getId() {
@@ -126,13 +126,4 @@ public class Reserva {
         this.bar = bar;
     }
 
-    // REMOVE THIS METHOD:
-    /*
-    public void setMesaId(Long mesaId) {
-        if (this.mesa == null) {
-            this.mesa = new Mesa();
-        }
-        this.mesa.setId(Math.toIntExact(mesaId));
-    }
-    */
 }

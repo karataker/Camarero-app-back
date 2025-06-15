@@ -1,0 +1,164 @@
+
+@startuml
+skinparam classAttributeIconSize 0
+
+package "ms-camarero-facturacion" {
+  class Factura {
+    Integer id
+    Integer barId
+    String cliente
+    Double total
+    LocalDateTime fecha
+    List<LineaFactura> lineas
+  }
+  class LineaFactura {
+    Integer id
+    String nombreProducto
+    Double precioUnitario
+    Integer cantidad
+  }
+}
+
+package "ms-camarero-inventario" {
+  class Categoria {
+    Integer id
+    String nombre
+    Integer barId
+  }
+  class ProductoInventario {
+    Integer id
+    String nombre
+    String unidad
+    Double stockActual
+    Double stockMinimo
+    Integer barId
+  }
+  class PedidoProveedor {
+    Integer id
+    LocalDate fecha
+    double total
+    Integer barId
+  }
+  class DetallePedido {
+    Integer id
+    Double cantidad
+    Double precioUnitario
+  }
+  class Proveedor {
+    Integer id
+    String nombre
+    String telefono
+    String email
+    Integer barId
+  }
+}
+
+package "ms-camarero-menu" {
+  class Producto {
+    Integer id
+    String nombre
+    String descripcion
+    Double precio
+    Boolean visible
+    String imagen
+    Integer barId
+    boolean gluten
+    boolean lacteos
+    boolean sulfitos
+    boolean frutosSecos
+    boolean huevo
+  }
+  class IngredienteMenu {
+    Integer id
+    Double cantidadPorRacion
+  }
+}
+
+package "ms-camarero-notificaciones" {
+  class Notificacion {
+    Integer id
+    String tipo
+    String mensaje
+    Integer barId
+  }
+  class NotificacionDTO {
+    String tipo
+    String mensaje
+    Integer barId
+  }
+}
+
+package "ms-camarero-pedidos" {
+  class Comanda {
+    Integer id
+    Integer barId
+    String mesaCodigo
+    LocalDateTime fecha
+    String estado
+  }
+  class ItemComanda {
+    Integer id
+    String nombre
+    Integer productoId
+    int cantidad
+    double precio
+    String estado
+  }
+}
+
+package "ms-camarero-reservas" {
+  class Bar {
+    Long id
+    String nombre
+  }
+  class Mesa {
+    Integer id
+    String codigo
+    int capacidad
+    String zona
+    boolean disponible
+    boolean pedidoEnviado
+    int comensales
+    String fusionadaCon
+    String estado
+  }
+  class Reserva {
+    Long id
+    String nombreCliente
+    int numeroComensales
+    LocalDateTime fechaHora
+  }
+}
+
+package "ms-camarero-usuarios" {
+  class Usuario {
+    Integer id
+    String matricula
+    String contrasena
+    String nombre
+    String apellidos
+    String email
+    int barId
+  }
+  class Rol {
+    Integer id
+    String nombre
+  }
+}
+
+' Relaciones
+Factura "1" *-- "1..*" LineaFactura
+ProductoInventario "0..*" o-- "1" Categoria
+ProductoInventario "0..*" --> "0..1" Proveedor
+PedidoProveedor "1" *-- "1..*" DetallePedido
+PedidoProveedor "0..*" --> "1" Proveedor
+Producto "0..*" o-- "0..1" Categoria
+Producto "1" *-- "0..*" IngredienteMenu
+IngredienteMenu "0..*" --> "1" ProductoInventario
+Comanda "1" *-- "1..*" ItemComanda
+Mesa "0..*" o-- "1" Bar
+Reserva "0..*" --> "1" Bar
+Reserva "0..*" --> "1" Mesa
+Usuario "0..*" --> "1" Rol
+
+@enduml

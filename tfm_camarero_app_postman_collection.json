@@ -1,0 +1,1316 @@
+{
+  "info": {
+    "name": "TFM Camarero App API Endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección de todos los endpoints disponibles para pruebas en Postman."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "description": "URL base de la API"
+    }
+  ],
+  "item": [
+    {
+      "name": "Listar bares",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener bar por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar mesas de un bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:barId/mesas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":barId",
+            "mesas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear mesa en un bar",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:barId/mesas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":barId",
+            "mesas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ocupar mesa",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:barId/mesas/:codigoMesa/ocupar",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":barId",
+            "mesas",
+            ":codigoMesa",
+            "ocupar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear reserva en un bar",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:barId/reservas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":barId",
+            "reservas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar reservas de un bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bares/:barId/reservas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bares",
+            ":barId",
+            "reservas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar todas las reservas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar reserva",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservas/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservas",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar reserva",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservas/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservas",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Refresh token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/refresh",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "refresh"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar usuarios",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/usuarios",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "usuarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear usuario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/usuarios",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "usuarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar usuario",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/usuarios/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "usuarios",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar usuarios de un bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/usuarios/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "usuarios",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar categorías de inventario por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/categorias/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "categorias",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear categoría de inventario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/categorias",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "categorias"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar detalles de pedido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/detalles/pedido/:pedidoId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "detalles",
+            "pedido",
+            ":pedidoId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar pedidos por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/pedidos/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "pedidos",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar pedidos por proveedor",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/pedidos/proveedor/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "pedidos",
+            "proveedor",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear pedido a proveedor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "pedidos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar pedidos con detalles por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/pedidos/bar/:barId/detalles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "pedidos",
+            "bar",
+            ":barId",
+            "detalles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar todos los productos de inventario",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos de inventario por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener producto de inventario",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos por categoría",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/categoria/:categoria",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "categoria",
+            ":categoria"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener stock de producto",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/stock/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "stock",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear producto de inventario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar producto de inventario",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar producto de inventario",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Calcular cantidad de raciones",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/cantidad-raciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "cantidad-raciones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos bajo mínimo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/bajo-minimo",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "bajo-minimo"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ajustar entrada de stock",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/:id/ajustar/entrada",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            ":id",
+            "ajustar",
+            "entrada"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ajustar salida de stock",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/:id/ajustar/salida",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            ":id",
+            "ajustar",
+            "salida"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Restar ingredientes de producto",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/restar-ingredientes/:productoId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "restar-ingredientes",
+            ":productoId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar proveedores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar proveedores por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener proveedor",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear proveedor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar proveedor",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar proveedor",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/inventario/proveedores/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventario",
+            "proveedores",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar categorías de menú",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/categorias",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "categorias"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar categorías de menú por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/categorias/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "categorias",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear categoría de menú",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/categorias",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "categorias"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar categoría de menú",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/categorias/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "categorias",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar ingredientes por producto de menú",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/ingredientes/producto/:productoId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "ingredientes",
+            "producto",
+            ":productoId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear ingrediente de menú",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/ingredientes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "ingredientes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar ingrediente de menú",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/ingredientes/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "ingredientes",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar ingrediente de menú",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/ingredientes/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "ingredientes",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos de menú",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener producto de menú",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar productos de menú por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear producto de menú",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar producto de menú",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar producto de menú",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Raciones disponibles de producto",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/menu/productos/:id/raciones-disponibles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu",
+            "productos",
+            ":id",
+            "raciones-disponibles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Confirmar comanda",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/comandas/confirmar",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "comandas",
+            "confirmar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar comandas por mesa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/comandas/:barId/:mesaCodigo",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "comandas",
+            ":barId",
+            ":mesaCodigo"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar todas las comandas de un bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/comandas/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "comandas",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Actualizar ítem de comanda",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/comandas/items/:itemId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "comandas",
+            "items",
+            ":itemId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Terminar comandas de mesa",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/comandas/:barId/:mesaCodigo/terminar",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "comandas",
+            ":barId",
+            ":mesaCodigo",
+            "terminar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar facturas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facturacion/facturas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facturacion",
+            "facturas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar facturas por bar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facturacion/facturas/bares/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facturacion",
+            "facturas",
+            "bares",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener factura",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facturacion/facturas/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facturacion",
+            "facturas",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear sesión de pago",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facturacion/facturas/crear-pago",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facturacion",
+            "facturas",
+            "crear-pago"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear factura desde comanda",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/facturacion/facturas/crear-desde-comanda",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "facturacion",
+            "facturas",
+            "crear-desde-comanda"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Enviar notificación",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/notificaciones",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "notificaciones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar notificaciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/notificaciones/:tipo/bar/:barId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "notificaciones",
+            ":tipo",
+            "bar",
+            ":barId"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Contar notificaciones no leídas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/notificaciones/:tipo/bar/:barId/no-leidas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "notificaciones",
+            ":tipo",
+            "bar",
+            ":barId",
+            "no-leidas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Marcar notificaciones como leídas",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/notificaciones/:tipo/marcar-leidas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "notificaciones",
+            ":tipo",
+            "marcar-leidas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Resumen analítico anual",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analiticas/bar/:barId/resumen/:ano",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analiticas",
+            "bar",
+            ":barId",
+            "resumen",
+            ":ano"
+          ]
+        }
+      }
+    }
+  ]
+}

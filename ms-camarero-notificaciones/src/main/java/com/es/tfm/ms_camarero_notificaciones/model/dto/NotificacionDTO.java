@@ -5,6 +5,14 @@ public class NotificacionDTO {
     private String mensaje;
     private Integer barId;
 
+    // Constructor
+    public NotificacionDTO() {}
+    public NotificacionDTO(String tipo, String mensaje, Integer barId) {
+        this.tipo = tipo;
+        this.mensaje = mensaje;
+        this.barId = barId;
+    }
+
     // Getters y Setters
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }

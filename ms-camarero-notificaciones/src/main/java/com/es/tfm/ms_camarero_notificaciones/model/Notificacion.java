@@ -46,6 +46,7 @@ public class Notificacion {
     public boolean isLeida() {
         return leida;
     }
+
     public void setLeida(boolean leida) {
         this.leida = leida;
     }

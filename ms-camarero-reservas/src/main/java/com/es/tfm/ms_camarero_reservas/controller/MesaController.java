@@ -6,7 +6,10 @@ import com.es.tfm.ms_camarero_reservas.repository.BarRepository;
 import com.es.tfm.ms_camarero_reservas.repository.MesaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import java.util.Map;
@@ -97,8 +100,14 @@ public class MesaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Una o ambas mesas no encontradas para el barId proporcionado");
         }
 
+        // Fusionar
         mesaSecundaria.setFusionadaCon(principal);
         mesaRepository.save(mesaSecundaria);
+
+        // Sumar capacidad
+        int capacidadTotal = mesaPrincipal.getCapacidad() + mesaSecundaria.getCapacidad();
+        mesaPrincipal.setCapacidad(capacidadTotal);
+        mesaRepository.save(mesaPrincipal);
 
         return ResponseEntity.ok().build();
     }
@@ -108,25 +117,50 @@ public class MesaController {
     public ResponseEntity<List<Mesa>> desfusionar(@PathVariable Long barId, @PathVariable String codigo) {
         List<Mesa> mesas = mesaRepository.findByBarId(barId);
 
+        Mesa mesaPrincipal = null;
+        List<Mesa> mesasFusionadas = new ArrayList<>();
+
+        // Buscar mesa principal y fusionadas
         for (Mesa mesa : mesas) {
-            if (codigo.equals(mesa.getFusionadaCon())) {
-                mesa.setFusionadaCon(null);
-                mesaRepository.save(mesa);
-            }
             if (codigo.equals(mesa.getCodigo())) {
-                mesa.setDisponible(true);
-                mesa.setComensales(0);
-                mesa.setPedidoEnviado(false);
-                mesa.setFusionadaCon(null);
-                mesaRepository.save(mesa);
+                mesaPrincipal = mesa;
+            } else if (codigo.equals(mesa.getFusionadaCon())) {
+                mesasFusionadas.add(mesa);
             }
+        }
+
+        if (mesaPrincipal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mesas);
+        }
+
+        // Calcular suma de capacidades fusionadas
+        int sumaFusionadas = mesasFusionadas.stream()
+                .mapToInt(Mesa::getCapacidad)
+                .sum();
+
+        // Restaurar la capacidad original de la mesa principal
+        int capacidadOriginal = mesaPrincipal.getCapacidad() - sumaFusionadas;
+        mesaPrincipal.setCapacidad(Math.max(capacidadOriginal, 1)); // Asegurar mínimo 1
+
+        // Restaurar estado de la mesa principal
+        mesaPrincipal.setDisponible(true);
+        mesaPrincipal.setComensales(0);
+        mesaPrincipal.setPedidoEnviado(false);
+        mesaPrincipal.setFusionadaCon(null); // por seguridad
+
+        mesaRepository.save(mesaPrincipal);
+
+        // Desfusionar las secundarias
+        for (Mesa fusionada : mesasFusionadas) {
+            fusionada.setFusionadaCon(null);
+            mesaRepository.save(fusionada);
         }
 
         List<Mesa> actualizadas = mesaRepository.findByBarId(barId);
         return ResponseEntity.ok(actualizadas);
     }
 
-
+    @Transactional
     @DeleteMapping("/bares/{barId}/mesas/{codigoMesa}")
     public ResponseEntity<?> eliminarMesa(
             @PathVariable Long barId,
@@ -137,23 +171,30 @@ public class MesaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bar no encontrado con id: " + barId);
         }
 
-        Mesa mesaAEliminar = mesaRepository.findByBarIdAndCodigo(barId, codigoMesa)
+        Bar bar = barOptional.get();
+
+        Mesa mesaAEliminar = bar.getMesas().stream()
+                .filter(m -> m.getCodigo().equals(codigoMesa))
+                .findFirst()
                 .orElse(null);
 
-
         if (mesaAEliminar == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mesa con código " + codigoMesa + " no encontrada en el bar " + barId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Mesa con código " + codigoMesa + " no encontrada en el bar " + barId);
         }
 
-        boolean tieneFusionadas = mesaRepository.findByBarId(barId).stream()
+        boolean tieneFusionadas = bar.getMesas().stream()
                 .anyMatch(m -> codigoMesa.equals(m.getFusionadaCon()));
+
         if (tieneFusionadas) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("No se puede eliminar: hay mesas fusionadas con esta.");
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar: hay mesas fusionadas con esta.");
         }
+        // esto se hace porque bar tiene en mesa orphanRemoval = true
+        bar.getMesas().remove(mesaAEliminar);
+        barRepository.save(bar);
 
-        mesaRepository.delete(mesaAEliminar);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Mesa eliminada correctamente.");
     }
 
 
